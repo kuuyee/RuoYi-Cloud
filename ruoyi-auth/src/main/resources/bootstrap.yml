@@ -22,4 +22,4 @@ spring:
         file-extension: yml
         namespace: 9232ad04-a160-405d-a759-7c8cc5ad10af
         # 共享配置
-       # shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

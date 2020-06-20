@@ -25,7 +25,7 @@ spring:
         namespace: 9232ad04-a160-405d-a759-7c8cc5ad10af
         group: DEFAULT_GROUP
         # 共享配置
-        #shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
     sentinel:
       # 取消控制台懒加载
       eager: true
