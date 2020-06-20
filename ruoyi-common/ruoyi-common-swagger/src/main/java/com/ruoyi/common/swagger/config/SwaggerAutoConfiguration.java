@@ -69,6 +69,7 @@ public class SwaggerAutoConfiguration
          //noinspection Guava
         return new Docket(DocumentationType.SWAGGER_2)
                 .host(swaggerProperties.getHost())
+              // .enable(true)
                 .apiInfo(apiInfo(swaggerProperties)).select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
                 .paths(Predicates.and(Predicates.not(Predicates.or(excludePath)), Predicates.or(basePath)))

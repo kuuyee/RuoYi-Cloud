@@ -6,7 +6,7 @@ server:
 spring: 
   application:
     # 应用名称
-    name: ruoyi-auth
+    name: gomk-auth
   profiles:
     # 环境配置
     active: dev
@@ -14,11 +14,12 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 127.0.0.1:8848
+        server-addr: 114.67.253.192:8848
       config:
         # 配置中心地址
-        server-addr: 127.0.0.1:8848
+        server-addr: 114.67.253.192:8848
         # 配置文件格式
         file-extension: yml
+        namespace: 9232ad04-a160-405d-a759-7c8cc5ad10af
         # 共享配置
-        shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+       # shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
