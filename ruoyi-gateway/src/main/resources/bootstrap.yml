@@ -22,8 +22,7 @@ spring:
         server-addr: 114.67.253.192:8848
         # 配置文件格式
         file-extension: yml
-        namespace: 9232ad04-a160-405d-a759-7c8cc5ad10af
-        group: DEFAULT_GROUP
+        namespace: ${spring.profiles.active}
         # 共享配置
         shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
     sentinel:
