@@ -52,11 +52,7 @@
 			<artifactId>sentinel-datasource-nacos</artifactId>
 		</dependency>
 
-		<!-- Spring Security Oauth2 -->
-		<!--  <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-oauth2</artifactId>
-		</dependency>  -->
+		
 		<!-- SpringBoot Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

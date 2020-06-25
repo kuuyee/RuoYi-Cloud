@@ -2,7 +2,6 @@ package com.ruoyi.gateway.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -23,7 +22,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		logger.info("in filter.");
+		logger.info("in filter." );
 		// 向headers中放文件，记得build
 		ServerHttpRequest host = exchange.getRequest().mutate().header("uuu", "11").build();
 		// 将现在的request 变成 change对象
