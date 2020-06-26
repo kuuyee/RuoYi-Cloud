@@ -79,6 +79,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <include refid="selectDeptVo"/>
 		where dept_name=#{deptName} and parent_id = #{parentId}
 	</select>
+	
+	<select id="selectDeptsByIds" parameterType="java.util.List" resultMap="SysDeptResult">
+	    select * from sys_dept 
+	    where dept_id in
+	    <foreach collection="depts" item="item" index="index"
+	        separator="," open="(" close=")">
+	        #{item}
+	    </foreach>
+	</select>
     
     <insert id="insertDept" parameterType="SysDept">
  		insert into sys_dept(

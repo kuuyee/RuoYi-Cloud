@@ -91,6 +91,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where u.user_id = #{userId}
 	</select>
 	
+	<select id="selectUsersByIds" parameterType="java.util.List" resultMap="SysUserResult">
+	    select * from sys_user 
+	    where user_id in
+	    <foreach collection="userIds" item="item" index="index"
+	        separator="," open="(" close=")">
+	        #{item}
+	    </foreach>
+	</select>
+	
 	<select id="checkUserNameUnique" parameterType="String" resultType="int">
 		select count(1) from sys_user where user_name = #{userName}
 	</select>

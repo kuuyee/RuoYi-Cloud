@@ -53,4 +53,9 @@ public class SecurityConstants
      * 默认的查询语句
      */
     public static final String DEFAULT_FIND_STATEMENT = BASE_FIND_STATEMENT + " order by client_id";
+
+    /**
+     * 角色id集合
+     */
+    public static final String AUTHORITIES = "user_authorities";
 }

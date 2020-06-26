@@ -20,6 +20,13 @@ public interface SysDeptMapper
      * @return 部门信息集合
      */
     public List<SysDept> selectDeptList(SysDept dept);
+    
+    /**
+     * 根据ids查询
+     * @param depts
+     * @return
+     */
+    public List<SysDept> selectDeptsByIds(@Param("depts") List<String> depts);
 
     /**
      * 根据角色ID查询部门树信息

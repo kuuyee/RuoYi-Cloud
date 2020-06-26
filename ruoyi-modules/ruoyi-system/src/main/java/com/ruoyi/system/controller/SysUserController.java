@@ -1,9 +1,15 @@
 package com.ruoyi.system.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.ruoyi.common.core.constant.UserConstants;
 import com.ruoyi.common.core.domain.R;
 import com.ruoyi.common.core.utils.StringUtils;
@@ -26,8 +33,10 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.utils.SecurityUtils;
+import com.ruoyi.system.api.domain.SysDept;
 import com.ruoyi.system.api.domain.SysUser;
 import com.ruoyi.system.api.model.UserInfo;
+import com.ruoyi.system.service.ISysDeptService;
 import com.ruoyi.system.service.ISysPermissionService;
 import com.ruoyi.system.service.ISysPostService;
 import com.ruoyi.system.service.ISysRoleService;
@@ -53,6 +62,9 @@ public class SysUserController extends BaseController
 
     @Autowired
     private ISysPermissionService permissionService;
+    
+    @Autowired
+    private ISysDeptService deptService;
 
     /**
      * 获取用户列表
@@ -134,6 +146,82 @@ public class SysUserController extends BaseController
         ajax.put("user", userService.selectUserById(userId));
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
+        return ajax;
+    }
+    
+    /**
+     * 自定义:获取用户所处部门信息
+     * 
+     * @return 用户信息
+     */
+    @GetMapping("/custom/dept/{userId}")
+    public AjaxResult getDept(@PathVariable(value = "userId", required = false) Long userId)
+    {
+        AjaxResult ajax = AjaxResult.success();
+        SysUser user = userService.selectUserById(userId);
+        SysDept dept = deptService.selectDeptById(user.getDeptId());
+        ajax.put("dept", dept == null ? "" : dept.getAncestors());
+        return ajax;
+    }
+    
+    /**
+     * 自定义:获取多部门信息
+     */
+    @GetMapping("/custom/depts/{deptIds}")
+    public AjaxResult getDepts(@PathVariable(value = "deptIds", required = false) String deptIds)
+    {
+        AjaxResult ajax = AjaxResult.success();
+        List<SysDept> depts = deptService.selectDeptsByIds( Arrays.asList(deptIds.split(",")));
+        List<Map<String, String>> list = new ArrayList<>();
+        for (SysDept dept : depts) {
+        	Map<String, String> map = new HashMap<>();
+        	map.put("id", dept.getDeptId() + "");
+        	map.put("title", dept.getDeptName());
+        	list.add(map);
+        }
+        ajax.put("depts", list);
+        return ajax;
+    }
+    
+    /**
+     * 自定义:获取多用户信息
+     */
+    @GetMapping("/custom/users/{userIds}")
+    public AjaxResult getUsersInfo(@PathVariable(value = "userIds", required = false) String userIds)
+    {
+    	AjaxResult ajax = AjaxResult.success();
+    	List<SysUser> users = userService.selectUsersByIds(Arrays.asList(userIds.split(",")));
+        List<Map<String, String>> list = new ArrayList<>();
+        for (SysUser user : users) {
+        	Map<String, String> map = new HashMap<>();
+        	map.put("id", user.getUserId() + "");
+        	map.put("trueName", user.getNickName());
+        	list.add(map);
+        }
+        ajax.put("users", list);
+        return ajax;
+    }
+    
+    /**
+     * 自定义:是否管理员
+     * 
+     * @return 用户信息
+     */
+    @GetMapping("/custom/isAdmin/{userId}")
+    public AjaxResult isAdmin(@PathVariable(value = "userId", required = false) Long userId)
+    {
+        // 角色集合
+        Set<String> roles = permissionService.getRolePermission(userId);
+        boolean bl = false;
+        for (String role : roles) {
+        	if ("admin".equals(role)) {
+        		bl = true;
+        		break;
+        	}
+        }
+       
+        AjaxResult ajax = AjaxResult.success();
+        ajax.put("isAdmin", bl);
         return ajax;
     }
 

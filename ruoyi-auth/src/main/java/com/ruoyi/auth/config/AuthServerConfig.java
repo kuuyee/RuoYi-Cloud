@@ -130,6 +130,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter
                     Map<String, Object> additionalInformation = new LinkedHashMap<String, Object>();
                     additionalInformation.put(SecurityConstants.DETAILS_USERNAME, authentication.getName());
                     additionalInformation.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
+                    additionalInformation.put(SecurityConstants.AUTHORITIES, user.getAuthorities());
+                    
                     token.setAdditionalInformation(additionalInformation);
                 }
                 return accessToken;
