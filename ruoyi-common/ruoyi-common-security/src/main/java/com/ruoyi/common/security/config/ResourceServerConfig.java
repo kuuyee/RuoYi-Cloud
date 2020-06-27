@@ -66,13 +66,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception
     {
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-//      http.csrf().disable();  
- //       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
-//                .authorizeRequests();
-//        // 不登录可以访问
-//        authIgnoreConfig().getUrls().forEach(url -> registry.antMatchers(url).permitAll());
-//       // registry.anyRequest().authenticated();
+        //http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+      http.csrf().disable();  
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
+                .authorizeRequests();
+        // 不登录可以访问
+        authIgnoreConfig().getUrls().forEach(url -> registry.antMatchers(url).permitAll());
+        registry.anyRequest().authenticated();
     }
 
     @Override
