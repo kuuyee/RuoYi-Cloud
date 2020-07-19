@@ -1,5 +1,7 @@
 package com.ruoyi.gateway.filter;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -38,6 +40,12 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object>
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
+            URI uri = request.getURI();
+            // Swagger授权不处理
+            if (uri.getHost().indexOf("localhost") >= 0) {
+                return chain.filter(exchange);
+            }
+            
             // 非登录请求，不处理
             if (!StringUtils.containsIgnoreCase(request.getURI().getPath(), AUTH_URL))
             {
