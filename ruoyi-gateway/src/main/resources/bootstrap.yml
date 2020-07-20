@@ -17,6 +17,7 @@ spring:
       discovery:
         # 服务注册地址
         server-addr: 114.67.253.192:8848
+        ip: 116.196.76.171
       config:
         # 配置中心地址
         server-addr: 114.67.253.192:8848
