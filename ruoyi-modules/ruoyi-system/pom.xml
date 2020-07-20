@@ -62,7 +62,7 @@
 		 <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
             <exclusions>
             	<exclusion>
             		 <groupId>com.github.jsqlparser</groupId>
@@ -70,6 +70,10 @@
             	</exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
         
         <!-- Ruoyi Common Security -->
         <dependency>
