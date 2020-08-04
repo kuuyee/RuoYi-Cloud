@@ -59,17 +59,17 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object>
             {
                 return chain.filter(exchange);
             }
-            try
-            {
-                validateCodeService.checkCapcha(request.getQueryParams().getFirst(CODE),
-                        request.getQueryParams().getFirst(UUID));
-            }
-            catch (Exception e)
-            {
-                ServerHttpResponse response = exchange.getResponse();
-                return exchange.getResponse().writeWith(
-                        Mono.just(response.bufferFactory().wrap(JSON.toJSONBytes(AjaxResult.error(e.getMessage())))));
-            }
+//            try
+//            {
+//                validateCodeService.checkCapcha(request.getQueryParams().getFirst(CODE),
+//                        request.getQueryParams().getFirst(UUID));
+//            }
+//            catch (Exception e)
+//            {
+//                ServerHttpResponse response = exchange.getResponse();
+//                return exchange.getResponse().writeWith(
+//                        Mono.just(response.bufferFactory().wrap(JSON.toJSONBytes(AjaxResult.error(e.getMessage())))));
+//            }
             return chain.filter(exchange);
         };
     }
