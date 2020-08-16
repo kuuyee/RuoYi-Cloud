@@ -159,8 +159,13 @@ public class SysUserController extends BaseController
     {
         AjaxResult ajax = AjaxResult.success();
         SysUser user = userService.selectUserById(userId);
-        SysDept dept = deptService.selectDeptById(user.getDeptId());
-        ajax.put("dept", dept == null ? "" : dept.getAncestors());
+        Long deptId = user.getDeptId();
+        SysDept dept = deptService.selectDeptById(deptId);
+        if (dept == null || StringUtils.isBlank(dept.getAncestors())) {
+        	 ajax.put("dept", deptId);
+        } else {
+        	ajax.put("dept", dept.getAncestors() + "," +  deptId);
+        }
         return ajax;
     }
     
