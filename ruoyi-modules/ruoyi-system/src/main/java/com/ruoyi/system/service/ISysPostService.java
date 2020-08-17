@@ -1,6 +1,7 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.ruoyi.system.domain.SysPost;
 
@@ -98,4 +99,6 @@ public interface ISysPostService
      * @return 结果
      */
     public int updatePost(SysPost post);
+
+	public Set<String> selectPostNameByUserId(Long userId);
 }

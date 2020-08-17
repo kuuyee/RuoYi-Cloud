@@ -1,6 +1,7 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+import java.util.Set;
 
 import com.ruoyi.system.domain.SysPost;
 
@@ -97,4 +98,6 @@ public interface SysPostMapper
      * @return 结果
      */
     public SysPost checkPostCodeUnique(String postCode);
+
+	public Set<String> selectPostNameByUserId(Long userId);
 }

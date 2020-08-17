@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -176,4 +177,9 @@ public class SysPostServiceImpl implements ISysPostService
     {
         return postMapper.updatePost(post);
     }
+
+	@Override
+	public Set<String> selectPostNameByUserId(Long userId) {
+		return postMapper.selectPostNameByUserId(userId);
+	}
 }
