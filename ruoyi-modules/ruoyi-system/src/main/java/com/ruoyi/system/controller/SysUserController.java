@@ -34,6 +34,7 @@ import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.utils.SecurityUtils;
 import com.ruoyi.system.api.domain.SysDept;
+import com.ruoyi.system.api.domain.SysRole;
 import com.ruoyi.system.api.domain.SysUser;
 import com.ruoyi.system.api.model.UserInfo;
 import com.ruoyi.system.service.ISysDeptService;
@@ -232,6 +233,89 @@ public class SysUserController extends BaseController
     }
     
     /**
+     * 自定义:获取多用户信息
+     */
+    @GetMapping("/activiti/users/{userIds}")
+    public List<Map<String, String>> getActivitiUsersInfo(@PathVariable(value = "userIds", required = false) String userIds)
+    {
+    	List<Map<String, String>> list = new ArrayList<>();
+    	List<SysUser> users = userService.selectUsersByIds(Arrays.asList(userIds.split(",")));
+        for (SysUser user : users) {
+        	Map<String, String> map = new HashMap<>();
+        	map.put("id", user.getUserId() + "");
+        	map.put("userName", user.getUserName());
+        	map.put("trueName", user.getNickName());
+        	list.add(map);
+        }
+        return list;
+    }
+    
+    /**
+     * 自定义:获取多部门
+     */
+    @GetMapping("/activiti/depts/{userIds}")
+	public List<Map<String, String>> findDeptById(String userIds) {
+    	List<Map<String, String>> list = new ArrayList<>();
+    	List<SysDept> entitys = deptService.selectDeptsByIds(Arrays.asList(userIds.split(",")));
+    	entitys.forEach(d -> {
+    		Map<String, String> map = new HashMap<>();
+        	map.put("id", d.getDeptId() + "");
+        	map.put("name", d.getDeptName());
+        	list.add(map);
+    	});
+    	return list;
+    }
+
+    /**
+     * 自定义:获取多角色
+     */
+    @GetMapping("/activiti/roles/{roleids}")
+	public List<Map<String, String>> findRoleById(String roleids) {
+    	List<Map<String, String>> list = new ArrayList<>();
+    	List<SysRole> entitys = roleService.selectRolesByIds(Arrays.asList(roleids.split(",")));
+    	entitys.forEach(d -> {
+    		Map<String, String> map = new HashMap<>();
+        	map.put("id", d.getRoleId() + "");
+        	map.put("name", d.getRoleName());
+        	list.add(map);
+    	});
+    	return list;
+    }
+    
+    /**
+     * 自定义:获取多用户根据角色
+     */
+    @GetMapping("/activiti/role/users/{roleids}")
+	public List<Map<String, String>> getUsersByRoleIds(String roleids) {
+    	List<Map<String, String>> list = new ArrayList<>();
+    	List<SysUser> users = userService.selectUsersByRoleIds(Arrays.asList(roleids.split(",")));
+        for (SysUser user : users) {
+        	Map<String, String> map = new HashMap<>();
+        	map.put("id", user.getUserId() + "");
+        	map.put("userName", user.getUserName());
+        	map.put("trueName", user.getNickName());
+        	list.add(map);
+        }
+        return list;
+    }
+    
+    
+    
+    
+    /**
+     * 自定义:获取用户信息
+     * 
+     * @return 用户信息
+     */
+    @GetMapping("/activiti/userName/{userId}")
+    public String getUserName(@PathVariable(value = "userId", required = true) String userId)
+    {
+        SysUser user = userService.selectUserById(Long.parseLong(userId));
+        return user == null ? "" : user.getUserName();
+    }
+
+    
+    /**
      * 自定义:是否管理员
      * 
      * @return 用户信息
@@ -253,7 +337,8 @@ public class SysUserController extends BaseController
         ajax.put("isAdmin", bl);
         return ajax;
     }
-
+    
+  
     /**
      * 根据用户编号获取详细信息
      */

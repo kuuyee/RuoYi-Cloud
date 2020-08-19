@@ -73,6 +73,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where r.role_id = #{roleId}
 	</select>
 	
+	<select id="selectRolesByIds" parameterType="java.util.List" resultMap="SysRoleResult">
+	    <include refid="selectRoleVo"/>
+	    where role_id in
+	    <foreach collection="ids" item="item" index="index"
+	        separator="," open="(" close=")">
+	        #{item}
+	    </foreach>
+	</select>
+	
+	
 	<select id="selectRolesByUserName" parameterType="String" resultMap="SysRoleResult">
 		<include refid="selectRoleVo"/>
 		WHERE r.del_flag = '0' and u.user_name = #{userName}

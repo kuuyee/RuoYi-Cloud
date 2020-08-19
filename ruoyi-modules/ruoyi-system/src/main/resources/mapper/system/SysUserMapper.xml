@@ -100,6 +100,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    </foreach>
 	</select>
 	
+	<select id="selectUsersByRoleIds" parameterType="java.util.List" resultMap="SysUserResult">
+	    select u.* 
+	    	from sys_user u
+	    	inner join sys_user_role ur on ur.user_id = u.user_id
+	    	inner join sys_role r on ur.role_id = r.role_id
+	    where r.role_id in
+	    <foreach collection="roleids" item="item" index="index"
+	        separator="," open="(" close=")">
+	        #{item}
+	    </foreach>
+	</select>
+	
+	
 	<select id="checkUserNameUnique" parameterType="String" resultType="int">
 		select count(1) from sys_user where user_name = #{userName}
 	</select>

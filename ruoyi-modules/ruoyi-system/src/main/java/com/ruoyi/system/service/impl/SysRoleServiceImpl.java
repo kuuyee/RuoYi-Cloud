@@ -309,4 +309,9 @@ public class SysRoleServiceImpl implements ISysRoleService
         }
         return roleMapper.deleteRoleByIds(roleIds);
     }
+
+	@Override
+	public List<SysRole> selectRolesByIds(List<String> asList) {
+		return roleMapper.selectRolesByIds(asList);
+	}
 }

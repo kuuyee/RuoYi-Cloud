@@ -112,4 +112,6 @@ public interface SysUserMapper
     public SysUser checkEmailUnique(String email);
 
 	public List<SysUser> selectUsersByIds(@Param("userIds") List<String> asList);
+
+	public List<SysUser> selectUsersByRoleIds(@Param("roleids") List<String> roleids);
 }

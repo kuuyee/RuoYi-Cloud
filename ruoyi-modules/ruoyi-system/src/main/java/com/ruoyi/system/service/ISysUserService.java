@@ -167,4 +167,6 @@ public interface ISysUserService
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
 
 	public List<SysUser> selectUsersByIds(List<String> asList);
+
+	public List<SysUser> selectUsersByRoleIds(List<String> asList);
 }

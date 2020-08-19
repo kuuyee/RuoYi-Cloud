@@ -459,4 +459,9 @@ public class SysUserServiceImpl implements ISysUserService
 		return userMapper.selectUsersByIds(asList);
 	}
 
+	@Override
+	public List<SysUser> selectUsersByRoleIds(List<String> roleids) {
+		return userMapper.selectUsersByRoleIds(roleids);
+	}
+
 }

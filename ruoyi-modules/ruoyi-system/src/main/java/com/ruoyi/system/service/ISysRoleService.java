@@ -129,4 +129,6 @@ public interface ISysRoleService
      * @return 结果
      */
     public int deleteRoleByIds(Long[] roleIds);
+
+	public List<SysRole> selectRolesByIds(List<String> asList);
 }
