@@ -3,8 +3,10 @@ package com.ruoyi.system.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.ruoyi.system.api.domain.SysUser;
+import com.ruoyi.system.domain.vo.SimpleUser;
 
 /**
  * 用户表 数据层
@@ -114,4 +116,7 @@ public interface SysUserMapper
 	public List<SysUser> selectUsersByIds(@Param("userIds") List<String> asList);
 
 	public List<SysUser> selectUsersByRoleIds(@Param("roleids") List<String> roleids);
+	
+	@Select("select * from sys_user where dept_id = ${deptId}")
+	public List<SimpleUser> selectUsersByDeptId(@Param("deptId") Integer deptId);
 }

@@ -42,6 +42,8 @@ import com.ruoyi.system.service.ISysPermissionService;
 import com.ruoyi.system.service.ISysPostService;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
+import com.ruoyi.system.utils.tree.TreeDto;
+
 
 /**
  * 用户信息
@@ -78,6 +80,18 @@ public class SysUserController extends BaseController
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
     }
+//    
+//    /**
+//     * 获取用户列表
+//     */
+//    @GetMapping("/all/list")
+//    public TableDataInfo alllist(SysUser user)
+//    {
+//        startPage();
+//        List<SysUser> list = userService.selectALLUserList(user);
+//        return getDataTable(list);
+//    }
+    
 
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:user:export')")
@@ -172,6 +186,20 @@ public class SysUserController extends BaseController
         ajax.put("permissions", permissions);
         ajax.put("postNames", postNames);
         return ajax;
+    }
+    
+
+    /**
+     * 部门人员树
+     * 
+     * @return 用户信息
+     */
+    @GetMapping("/tree")
+    public AjaxResult getUserTree()
+    {
+    	AjaxResult ajax = AjaxResult.success();
+    	List<TreeDto> tree = deptService.selectDeptTree();
+        return ajax.success(tree);
     }
     
     /**

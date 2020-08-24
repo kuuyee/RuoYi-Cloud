@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.system.api.domain.SysDept;
 import com.ruoyi.system.domain.vo.TreeSelect;
+import com.ruoyi.system.utils.tree.TreeDto;
 
 /**
  * 部门管理 服务层
@@ -109,4 +110,6 @@ public interface ISysDeptService
     public int deleteDeptById(Long deptId);
 
 	public List<SysDept> selectDeptsByIds(List<String> asList);
+
+	public List<TreeDto> selectDeptTree();
 }

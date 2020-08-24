@@ -2,9 +2,14 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
 import com.ruoyi.system.api.domain.SysDept;
+import com.ruoyi.system.utils.tree.TreeDto;
 
 /**
  * 部门管理 数据层
@@ -123,4 +128,16 @@ public interface SysDeptMapper
      * @return 结果
      */
     public int deleteDeptById(Long deptId);
+    
+    
+    @Select(" select "
+    		+ " t1.dept_id as id, t1.parent_id as parentId, t2.dept_name as parentName, "
+    		+ " t1.dept_name as title, t1.order_num as sort"
+    		+ " from sys_dept t1 "
+    		+ " left join sys_dept t2 on t1.parent_id=t2.dept_id"
+    		+ " where t1.status=0 and t1.del_flag=0 order by t1.order_num")
+    @Results({
+    	@Result(property = "id",column = "id"),
+		@Result(property = "users", column = "id", many = @Many(select = "com.ruoyi.system.mapper.SysUserMapper.selectUsersByDeptId")) })
+	public List<TreeDto> selectDeptTree();
 }

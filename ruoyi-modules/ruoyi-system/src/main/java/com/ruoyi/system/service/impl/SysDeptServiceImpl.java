@@ -16,6 +16,8 @@ import com.ruoyi.system.api.domain.SysDept;
 import com.ruoyi.system.domain.vo.TreeSelect;
 import com.ruoyi.system.mapper.SysDeptMapper;
 import com.ruoyi.system.service.ISysDeptService;
+import com.ruoyi.system.utils.tree.TreeDto;
+import com.ruoyi.system.utils.tree.TreeUtils;
 
 /**
  * 部门管理 服务实现
@@ -309,5 +311,11 @@ public class SysDeptServiceImpl implements ISysDeptService
 	@Override
 	public List<SysDept> selectDeptsByIds(List<String> depts) {
 		return deptMapper.selectDeptsByIds(depts);
+	}
+
+	@Override
+	public List<TreeDto> selectDeptTree() {
+		List<TreeDto> list =  deptMapper.selectDeptTree();
+		return TreeUtils.getTree(list);
 	}
 }
