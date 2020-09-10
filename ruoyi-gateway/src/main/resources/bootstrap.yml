@@ -9,18 +9,18 @@ spring:
     name: gomk-gateway
   profiles:
     # 环境配置
-    active: dev
+    active: test
   main:
     allow-bean-definition-overriding: true
   cloud:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 114.67.253.192:8848
-        ip: 116.196.76.171
+        server-addr: nacos-service-gomk:8848
+        #ip: 116.196.76.171
       config:
         # 配置中心地址
-        server-addr: 114.67.253.192:8848
+        server-addr: nacos-service-gomk:8848
         # 配置文件格式
         file-extension: yml
         namespace: ${spring.profiles.active}
@@ -41,3 +41,8 @@ spring:
 #            groupId: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: flow
+##配置日志
+logging:
+  level:
+    root: info
+    
