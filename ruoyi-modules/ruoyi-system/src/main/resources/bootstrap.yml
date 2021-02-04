@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: 9201
+  port: 26382
 
 # Spring
 spring: 
@@ -14,11 +14,12 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: nacos-service-gomk:8848
-       # ip: 116.196.76.171
+        server-addr: 123.57.243.16:28848
+        namespace: ${spring.profiles.active}
+        #ip: 123.57.236.80
       config:
         # 配置中心地址
-        server-addr: nacos-service-gomk:8848
+        server-addr: 123.57.243.16:28848
         # 配置文件格式
         file-extension: yml
         namespace: ${spring.profiles.active}

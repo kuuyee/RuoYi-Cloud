@@ -1,6 +1,6 @@
 # Tomcat
 server: 
-  port: 26381
+  port: 26301
 
 # Spring
 spring: 
@@ -9,14 +9,14 @@ spring:
     name: gomk-auth
   profiles:
     # 环境配置
-    active: dev
+    active: test
   cloud:
     nacos:
       discovery:
         # 服务注册地址
         server-addr: 123.57.243.16:28848
         namespace: ${spring.profiles.active}
-        #ip: 123.57.236.80
+       # ip: 123.57.236.80
       config:
         # 配置中心地址
         server-addr: 123.57.243.16:28848

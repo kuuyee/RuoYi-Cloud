@@ -1,15 +1,15 @@
 # Tomcat
-server: 
-  port: 26381
+server:
+  port: 26302
 
 # Spring
 spring: 
   application:
     # 应用名称
-    name: gomk-auth
+    name: gomk-system
   profiles:
     # 环境配置
-    active: dev
+    active: test
   cloud:
     nacos:
       discovery:
